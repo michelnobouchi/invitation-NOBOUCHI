@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Invitation — NOBOUCHI</title>
+
+<style>
+
+* {
+
+    box-sizing: border-box;
+
+    margin: 0;
+
+    padding: 0;
+
+}
+
+body {
+
+    background: #ffffff;
+
+    color: #111111;
+
+    font-family: Georgia, "Times New Roman", serif;
+
+    min-height: 100vh;
+
+}
+
+/* =========================
+
+   ÉCRAN ENVELOPPE
+
+========================= */
+
+.cover {
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 25px;
+
+    background: linear-gradient(135deg, #ffffff, #f5f5f5);
+
+}
+
+.cover-content {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    text-align: center;
+
+}
+
+.subtitle {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    letter-spacing: 4px;
+
+    color: #777;
+
+    text-transform: uppercase;
+
+    margin-bottom: 30px;
+
+}
+
+.envelope {
+
+    width: 340px;
+
+    height: 220px;
+
+    max-width: 90vw;
+
+    margin: auto;
+
+    position: relative;
+
+    perspective: 1000px;
+
+}
+
+.envelope-body {
+
+    position: absolute;
+
+    width: 100%;
+
+    height: 100%;
+
+    background: #fff;
+
+    border: 1px solid #dcdcdc;
+
+    box-shadow: 0 20px 50px rgba(0,0,0,.12);
+
+    overflow: hidden;
+
+}
+
+.envelope-body::before {
+
+    content: "";
+
+    position: absolute;
+
+    left: 0;
+
+    bottom: 0;
+
+    width: 100%;
+
+    height: 100%;
+
+    background:
+
+        linear-gradient(35deg, transparent 49.5%, #ddd 50%, transparent 50.5%),
+
+        linear-gradient(-35deg, transparent 49.5%, #ddd 50%, transparent 50.5%);
+
+}
+
+.flap {
+
+    position: absolute;
+
+    z-index: 5;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100%;
+
+    height: 58%;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+
+    transform-origin: top center;
+
+    transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
+
+}
+
+.letter {
+
+    position: absolute;
+
+    z-index: 3;
+
+    left: 8%;
+
+    bottom: 8%;
+
+    width: 84%;
+
+    height: 78%;
+
+    background: white;
+
+    border: 1px solid #eee;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-direction: column;
+
+    transition: transform 1.2s cubic-bezier(.2,.8,.2,1);
+
+}
+
+.letter-title {
+
+    font-size: 25px;
+
+    letter-spacing: 5px;
+
+}
+
+.letter-subtitle {
+
+    margin-top: 10px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    color: #777;
+
+}
+
+.envelope.open .flap {
+
+    transform: rotateX(180deg);
+
+}
+
+.envelope.open .letter {
+
+    transform: translateY(-115px);
+
+}
+
+.open-button {
+
+    margin-top: 45px;
+
+    padding: 15px 30px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background: #111;
+
+    color: white;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+}
+
+.touch {
+
+    margin-top: 13px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    color: #999;
+
+}
+
+/* =========================
+
+   INVITATION
+
+========================= */
+
+.invitation {
+
+    display: none;
+
+    min-height: 100vh;
+
+    padding: 30px 15px 50px;
+
+    background: #fff;
+
+}
+
+.invitation.active {
+
+    display: block;
+
+    animation: apparition 1s ease forwards;
+
+}
+
+@keyframes apparition {
+
+    from {
+
+        opacity: 0;
+
+        transform: translateY(25px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform: translateY(0);
+
+    }
+
+}
+
+.card {
+
+    max-width: 570px;
+
+    margin: auto;
+
+    padding: 8px;
+
+    border: 1px solid #ddd;
+
+    box-shadow: 0 20px 60px rgba(0,0,0,.08);
+
+}
+
+.card-inner {
+
+    border: 1px solid #eee;
+
+    padding: 45px 25px;
+
+    text-align: center;
+
+}
+
+.invitation-label {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 4px;
+
+    color: #888;
+
+    text-transform: uppercase;
+
+}
+
+h1 {
+
+    margin-top: 18px;
+
+    font-size: 42px;
+
+    font-weight: normal;
+
+    letter-spacing: 5px;
+
+}
+
+.name {
+
+    margin-top: 10px;
+
+    font-size: 28px;
+
+    letter-spacing: 8px;
+
+}
+
+.line {
+
+    width: 65px;
+
+    height: 1px;
+
+    background: #111;
+
+    margin: 25px auto;
+
+}
+
+.message {
+
+    max-width: 430px;
+
+    margin: auto;
+
+    font-size: 17px;
+
+    line-height: 1.8;
+
+}
+
+.details {
+
+    margin: 30px auto;
+
+    max-width: 450px;
+
+}
+
+.detail {
+
+    padding: 15px 5px;
+
+    border-bottom: 1px solid #eee;
+
+}
+
+.detail:first-child {
+
+    border-top: 1px solid #eee;
+
+}
+
+.detail-title {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: #888;
+
+    text-transform: uppercase;
+
+    margin-bottom: 6px;
+
+}
+
+.detail-value {
+
+    font-size: 17px;
+
+}
+
+.qr-title {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 3px;
+
+    color: #777;
+
+    text-transform: uppercase;
+
+}
+
+.qr {
+
+    width: 180px;
+
+    height: 180px;
+
+    margin: 20px auto 10px;
+
+    display: block;
+
+}
+
+.qr-text {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 11px;
+
+    color: #888;
+
+    margin-bottom: 25px;
+
+}
+
+.buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+
+}
+
+.button {
+
+    display: inline-block;
+
+    padding: 14px 22px;
+
+    border-radius: 50px;
+
+    text-decoration: none;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+}
+
+.maps {
+
+    background: #111;
+
+    color: white;
+
+}
+
+.whatsapp {
+
+    border: 1px solid #111;
+
+    color: #111;
+
+    background: white;
+
+}
+
+.replay {
+
+    margin-top: 30px;
+
+    padding: 13px 23px;
+
+    border-radius: 50px;
+
+    border: 1px solid #111;
+
+    background: white;
+
+    color: #111;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+}
+
+.footer {
+
+    margin-top: 30px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    color: #aaa;
+
+}
+
+@media(max-width:400px) {
+
+    h1 {
+
+        font-size: 34px;
+
+    }
+
+    .name {
+
+        font-size: 23px;
+
+    }
+
+    .card-inner {
+
+        padding: 35px 18px;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- =========================
+
+     ENVELOPPE
+
+========================= -->
+
+<section class="cover" id="cover">
+
+    <div class="cover-content">
+
+        <div class="subtitle">
+
+            Une invitation vous attend
+
+        </div>
+
+        <div class="envelope" id="envelope">
+
+            <div class="envelope-body"></div>
+
+            <div class="letter">
+
+                <div class="letter-title">
+
+                    NOBOUCHI
+
+                </div>
+
+                <div class="letter-subtitle">
+
+                    ANNIVERSAIRE
+
+                </div>
+
+            </div>
+
+            <div class="flap"></div>
+
+        </div>
+
+        <button class="open-button" onclick="openInvitation()">
+
+            OUVRIR L'INVITATION
+
+        </button>
+
+        <div class="touch">
+
+            Touchez pour ouvrir
+
+        </div>
+
+    </div>
+
+</section>
+
+<!-- =========================
+
+     INVITATION
+
+========================= -->
+
+<section class="invitation" id="invitation">
+
+    <div class="card">
+
+        <div class="card-inner">
+
+            <div class="invitation-label">
+
+                Invitation
+
+            </div>
+
+            <h1>
+
+                ANNIVERSAIRE
+
+            </h1>
+
+            <div class="name">
+
+                NOBOUCHI
+
+            </div>
+
+            <div class="line"></div>
+
+            <p class="message">
+
+                J’ai le plaisir de vous inviter à partager
+
+                avec moi un moment de joie et de convivialité
+
+                à l’occasion de mon anniversaire.
+
+            </p>
+
+            <div class="details">
+
+                <div class="detail">
+
+                    <div class="detail-title">
+
+                        Date
+
+                    </div>
+
+                    <div class="detail-value">
+
+                        Samedi 19 septembre 2026
+
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-title">
+
+                        Heure
+
+                    </div>
+
+                    <div class="detail-value">
+
+                        15h00
+
+                    </div>
+
+                </div>
+
+                <div class="detail">
+
+                    <div class="detail-title">
+
+                        Lieu
+
+                    </div>
+
+                    <div class="detail-value">
+
+                        Derrière Bonne Fontaine<br>
+
+                        Carrefour Le Maire
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="line"></div>
+
+            <div class="qr-title">
+
+                Localisation
+
+            </div>
+
+            <!-- QR CODE -->
+
+            <img
+
+                class="qr"
+
+                src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fmaps.app.goo.gl%2F5wrGmnecZxiPSMRS6%3Fg_st%3Dic"
+
+                alt="QR Code Google Maps"
+
+            >
+
+            <div class="qr-text">
+
+                Scannez le QR Code pour ouvrir l’itinéraire.
+
+            </div>
+
+            <div class="buttons">
+
+                <a
+
+                    class="button maps"
+
+                    href="https://maps.app.goo.gl/5wrGmnecZxiPSMRS6?g_st=ic"
+
+                    target="_blank">
+
+                    Ouvrir Maps
+
+                </a>
+
+                <a
+
+                    class="button whatsapp"
+
+                    href="https://wa.me/?text=Bonjour%20NOBOUCHI%2C%20je%20confirme%20ma%20présence%20à%20ton%20anniversaire%20du%2019%20septembre%202026."
+
+                    target="_blank">
+
+                    Confirmer
+
+                </a>
+
+            </div>
+
+            <button
+
+                class="replay"
+
+                onclick="replayInvitation()">
+
+                ↻ REVENIR À L'ENVELOPPE
+
+            </button>
+
+            <div class="footer">
+
+                Invitation personnelle — NOBOUCHI
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+
+function openInvitation() {
+
+    const envelope =
+
+        document.getElementById("envelope");
+
+    envelope.classList.add("open");
+
+    setTimeout(function() {
+
+        document.getElementById("cover")
+
+        .style.display = "none";
+
+        document.getElementById("invitation")
+
+        .classList.add("active");
+
+        window.scrollTo(0,0);
+
+    }, 1200);
+
+}
+
+function replayInvitation() {
+
+    document.getElementById("invitation")
+
+    .classList.remove("active");
+
+    document.getElementById("invitation")
+
+    .style.display = "none";
+
+    document.getElementById("cover")
+
+    .style.display = "flex";
+
+    document.getElementById("envelope")
+
+    .classList.remove("open");
+
+    window.scrollTo(0,0);
+
+}
+
+</script>
+
+</body>
+
+</html>
