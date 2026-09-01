@@ -4,670 +4,575 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#ffffff">
-
 <title>Invitation — NOBOUCHI</title>
 
 <style>
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
 
-html, body {
-    width: 100%;
-    min-height: 100%;
+html,body{
+  width:100%;
+  min-height:100%;
 }
 
-body {
-    background: #fff;
-    color: #111;
-    font-family: Georgia, "Times New Roman", serif;
+body{
+  font-family:Georgia,"Times New Roman",serif;
+  background:#fff;
+  color:#222;
+  overflow-x:hidden;
 }
 
 /* =========================
    ÉCRAN ENVELOPPE
 ========================= */
 
-.cover {
-    min-height: 100vh;
-    min-height: 100dvh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 25px 15px;
-    background: linear-gradient(135deg, #fff, #f5f5f5);
-    transition: opacity .4s ease;
+.cover{
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:25px 15px;
+  background:
+    radial-gradient(circle at top,#fff,#f8f8f8 60%,#eeeeee);
+  transition:opacity 1s ease, visibility 1s ease;
 }
 
-.cover-content {
-    width: 100%;
-    max-width: 430px;
-    text-align: center;
+.cover.hide{
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
 }
 
-.subtitle {
-    font-family: Arial, sans-serif;
-    font-size: 10px;
-    letter-spacing: 3px;
-    color: #777;
-    text-transform: uppercase;
-    margin-bottom: 35px;
+.cover-title{
+  text-align:center;
+  margin-bottom:30px;
 }
 
-/* =========================
-   ENVELOPPE
-========================= */
-
-.envelope {
-    width: min(340px, 88vw);
-    height: min(220px, 57vw);
-    min-height: 190px;
-    margin: 0 auto;
-    position: relative;
-    perspective: 1000px;
-
-    animation: floating 3s ease-in-out infinite;
+.cover-title .small{
+  font-size:13px;
+  letter-spacing:4px;
+  text-transform:uppercase;
+  color:#777;
+  margin-bottom:10px;
 }
 
-@keyframes floating {
-    0%, 100% {
-        transform: translateY(0);
-    }
-
-    50% {
-        transform: translateY(-5px);
-    }
+.cover-title h1{
+  font-size:clamp(28px,8vw,48px);
+  letter-spacing:5px;
+  font-weight:500;
 }
 
-/* Corps */
-
-.envelope-body {
-    position: absolute;
-    inset: 0;
-
-    background: #fff;
-
-    border: 1px solid #dcdcdc;
-
-    box-shadow: 0 20px 50px rgba(0,0,0,.12);
-
-    overflow: hidden;
+.cover-title p{
+  margin-top:10px;
+  font-size:15px;
+  color:#777;
 }
 
-.envelope-body::before {
-    content: "";
+/* ENVELOPPE */
 
-    position: absolute;
-    inset: 0;
-
-    background:
-        linear-gradient(35deg,
-        transparent 49.5%,
-        #ddd 50%,
-        transparent 50.5%),
-
-        linear-gradient(-35deg,
-        transparent 49.5%,
-        #ddd 50%,
-        transparent 50.5%);
+.envelope{
+  position:relative;
+  width:min(340px,88vw);
+  height:220px;
+  perspective:1000px;
+  margin-bottom:30px;
 }
 
-/* =========================
-   LETTRE
-========================= */
-
-.letter {
-    position: absolute;
-
-    z-index: 3;
-
-    left: 8%;
-    bottom: 8%;
-
-    width: 84%;
-    height: 78%;
-
-    background: #fff;
-
-    border: 1px solid #eee;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    flex-direction: column;
-
-    transition:
-        transform 1.35s cubic-bezier(.16,1,.3,1),
-        box-shadow 1s ease;
+.envelope-body{
+  position:absolute;
+  inset:0;
+  background:#fff;
+  border:1px solid #ddd;
+  box-shadow:0 18px 40px rgba(0,0,0,.13);
+  overflow:hidden;
+  z-index:2;
 }
 
-.letter-title {
-    font-size: clamp(20px, 7vw, 25px);
-    letter-spacing: 4px;
+.envelope-body:before,
+.envelope-body:after{
+  content:"";
+  position:absolute;
+  bottom:0;
+  width:0;
+  height:0;
+  border-style:solid;
 }
 
-.letter-subtitle {
-    margin-top: 10px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    color: #777;
+.envelope-body:before{
+  left:0;
+  border-width:110px 170px 0 0;
+  border-color:#f1f1f1 transparent transparent transparent;
 }
 
-/* =========================
-   RABAT
-========================= */
-
-.flap {
-    position: absolute;
-
-    z-index: 5;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 58%;
-
-    background: #fff;
-
-    border: 1px solid #ddd;
-
-    clip-path: polygon(
-        0 0,
-        100% 0,
-        50% 100%
-    );
-
-    transform-origin: top center;
-
-    backface-visibility: hidden;
-
-    transition:
-        transform 1.25s cubic-bezier(.22,.61,.36,1);
+.envelope-body:after{
+  right:0;
+  border-width:0 170px 110px 0;
+  border-color:transparent #f5f5f5 transparent transparent;
 }
 
-/* =========================
-   OUVERTURE
-========================= */
+/* Rabat */
 
-.envelope.open {
-    animation: opening .45s ease forwards;
+.flap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:120px;
+  background:#fafafa;
+  clip-path:polygon(0 0,100% 0,50% 100%);
+  transform-origin:top center;
+  transition:transform 1.2s cubic-bezier(.4,.1,.2,1);
+  z-index:5;
+  border-top:1px solid #ddd;
 }
 
-@keyframes opening {
-
-    0% {
-        transform: scale(1);
-    }
-
-    50% {
-        transform: scale(1.025);
-    }
-
-    100% {
-        transform: scale(1);
-    }
+.letter{
+  position:absolute;
+  left:7%;
+  width:86%;
+  height:185px;
+  top:25px;
+  background:#fff;
+  border:1px solid #e4e4e4;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
+  z-index:3;
+  transition:transform 1.2s cubic-bezier(.4,.1,.2,1);
 }
 
-.envelope.open .flap {
-    transform: rotateX(180deg);
+.letter strong{
+  font-size:22px;
+  letter-spacing:4px;
 }
 
-.envelope.open .letter {
-    transform: translateY(-115px);
-
-    box-shadow:
-        0 15px 35px rgba(0,0,0,.08);
+.letter span{
+  font-size:11px;
+  letter-spacing:3px;
+  color:#999;
+  margin-top:8px;
 }
 
-/* =========================
-   BOUTON
-========================= */
-
-.open-button {
-
-    margin-top: 45px;
-
-    padding: 15px 28px;
-
-    border: none;
-
-    border-radius: 50px;
-
-    background: #111;
-
-    color: #fff;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 10px;
-
-    font-weight: bold;
-
-    letter-spacing: 2px;
-
-    cursor: pointer;
-
-    -webkit-tap-highlight-color: transparent;
-
-    transition:
-        transform .2s ease,
-        opacity .4s ease;
+.envelope.open .flap{
+  transform:rotateX(180deg);
 }
 
-.open-button:active {
-    transform: scale(.96);
+.envelope.open .letter{
+  transform:translateY(-115px);
 }
 
-.touch {
+.open-btn{
+  border:none;
+  background:#222;
+  color:#fff;
+  padding:15px 28px;
+  border-radius:50px;
+  font-family:inherit;
+  font-size:13px;
+  letter-spacing:2px;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
+  transition:.3s;
+}
 
-    margin-top: 13px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 10px;
-
-    color: #999;
+.open-btn:active{
+  transform:scale(.96);
 }
 
 /* =========================
    INVITATION
 ========================= */
 
-.invitation {
-
-    display: none;
-
-    width: 100%;
-
-    min-height: 100vh;
-    min-height: 100dvh;
-
-    padding: 30px 12px 50px;
-
-    background: #fff;
+.invitation{
+  display:none;
+  position:relative;
+  min-height:100dvh;
+  padding:35px 15px 50px;
+  background:
+    radial-gradient(circle at top,#fff 0%,#fafafa 55%,#f3f3f3 100%);
+  overflow:hidden;
 }
 
-.invitation.active {
-
-    display: block;
-
-    animation:
-        invitationIn
-        1s
-        cubic-bezier(.16,1,.3,1)
-        forwards;
+.invitation.show{
+  display:block;
+  animation:pageIn 1.2s ease forwards;
 }
 
-@keyframes invitationIn {
+@keyframes pageIn{
+  from{
+    opacity:0;
+  }
+  to{
+    opacity:1;
+  }
+}
 
-    0% {
-        opacity: 0;
-        transform:
-            translateY(35px)
-            scale(.98);
-    }
+/* =========================
+   FLEURS
+========================= */
 
-    100% {
-        opacity: 1;
-        transform:
-            translateY(0)
-            scale(1);
-    }
+.flower{
+  position:absolute;
+  width:75px;
+  height:75px;
+  opacity:0;
+  z-index:1;
+}
+
+.flower-shape{
+  position:relative;
+  width:100%;
+  height:100%;
+  animation:sway 5s ease-in-out infinite alternate;
+}
+
+.petal{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:27px;
+  height:43px;
+  background:linear-gradient(145deg,#fff,#eeeeee);
+  border-radius:60% 60% 45% 45%;
+  transform-origin:50% 100%;
+  box-shadow:
+    0 3px 9px rgba(0,0,0,.08),
+    inset 0 0 5px rgba(255,255,255,.9);
+}
+
+.petal:nth-child(1){
+  transform:translate(-50%,-100%) rotate(0deg);
+}
+
+.petal:nth-child(2){
+  transform:translate(-50%,-100%) rotate(72deg);
+}
+
+.petal:nth-child(3){
+  transform:translate(-50%,-100%) rotate(144deg);
+}
+
+.petal:nth-child(4){
+  transform:translate(-50%,-100%) rotate(216deg);
+}
+
+.petal:nth-child(5){
+  transform:translate(-50%,-100%) rotate(288deg);
+}
+
+.flower-center{
+  position:absolute;
+  left:50%;
+  top:50%;
+  width:17px;
+  height:17px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  background:#e7dfd0;
+  box-shadow:0 2px 5px rgba(0,0,0,.12);
+}
+
+.f1{
+  top:4%;
+  left:-8px;
+}
+
+.f2{
+  top:13%;
+  right:-10px;
+  transform:scale(.75);
+}
+
+.f3{
+  bottom:10%;
+  left:-10px;
+  transform:scale(.85);
+}
+
+.f4{
+  bottom:5%;
+  right:-12px;
+  transform:scale(.72);
+}
+
+.invitation.show .f1{
+  animation:bloom 1.3s .2s ease forwards;
+}
+
+.invitation.show .f2{
+  animation:bloom 1.3s .6s ease forwards;
+}
+
+.invitation.show .f3{
+  animation:bloom 1.3s 1s ease forwards;
+}
+
+.invitation.show .f4{
+  animation:bloom 1.3s 1.4s ease forwards;
+}
+
+@keyframes bloom{
+  0%{
+    opacity:0;
+    transform:scale(.15) rotate(-25deg);
+  }
+  60%{
+    opacity:1;
+    transform:scale(1.08) rotate(5deg);
+  }
+  100%{
+    opacity:1;
+    transform:scale(1) rotate(0);
+  }
+}
+
+@keyframes sway{
+  from{
+    transform:rotate(-3deg);
+  }
+  to{
+    transform:rotate(4deg);
+  }
+}
+
+/* PETITES PÉTALES */
+
+.floating-petal{
+  position:absolute;
+  width:11px;
+  height:18px;
+  border-radius:60% 60% 45% 45%;
+  background:#fff;
+  box-shadow:0 2px 5px rgba(0,0,0,.08);
+  opacity:0;
+  z-index:1;
+}
+
+.p1{
+  left:18%;
+  top:15%;
+}
+
+.p2{
+  right:18%;
+  top:35%;
+}
+
+.p3{
+  left:25%;
+  bottom:20%;
+}
+
+.p4{
+  right:27%;
+  bottom:12%;
+}
+
+.invitation.show .p1{
+  animation:petalFall 7s 1.4s linear infinite;
+}
+
+.invitation.show .p2{
+  animation:petalFall 8s 2.3s linear infinite;
+}
+
+.invitation.show .p3{
+  animation:petalFall 7s 3s linear infinite;
+}
+
+.invitation.show .p4{
+  animation:petalFall 9s 3.7s linear infinite;
+}
+
+@keyframes petalFall{
+  0%{
+    opacity:0;
+    transform:translateY(-20px) rotate(0);
+  }
+  15%{
+    opacity:.75;
+  }
+  70%{
+    opacity:.7;
+  }
+  100%{
+    opacity:0;
+    transform:translateY(170px) translateX(35px) rotate(220deg);
+  }
 }
 
 /* =========================
    CARTE
 ========================= */
 
-.card {
-
-    width: 100%;
-
-    max-width: 570px;
-
-    margin: 0 auto;
-
-    padding: 7px;
-
-    border: 1px solid #ddd;
-
-    box-shadow:
-        0 20px 60px rgba(0,0,0,.08);
+.card{
+  position:relative;
+  z-index:3;
+  width:min(500px,100%);
+  margin:0 auto;
+  padding:42px 25px;
+  background:rgba(255,255,255,.96);
+  border:1px solid #dedede;
+  box-shadow:
+    0 20px 55px rgba(0,0,0,.10);
+  text-align:center;
 }
 
-.card-inner {
-
-    border: 1px solid #eee;
-
-    padding: 40px 20px;
-
-    text-align: center;
+.decor{
+  font-size:25px;
+  letter-spacing:8px;
+  color:#bbb;
+  margin-bottom:15px;
 }
 
-/* =========================
-   TITRES
-========================= */
-
-.invitation-label {
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: 4px;
-
-    color: #888;
-
-    text-transform: uppercase;
+.card .subtitle{
+  font-size:12px;
+  letter-spacing:5px;
+  color:#888;
+  text-transform:uppercase;
 }
 
-h1 {
-
-    margin-top: 18px;
-
-    font-size:
-        clamp(30px, 10vw, 42px);
-
-    font-weight: normal;
-
-    letter-spacing: 4px;
+.card h2{
+  font-size:clamp(30px,9vw,52px);
+  font-weight:500;
+  letter-spacing:6px;
+  margin:10px 0 5px;
 }
 
-.name {
-
-    margin-top: 10px;
-
-    font-size:
-        clamp(22px, 7vw, 28px);
-
-    letter-spacing: 6px;
+.card .name{
+  font-size:18px;
+  letter-spacing:5px;
+  color:#777;
+  margin-bottom:25px;
 }
 
-.line {
-
-    width: 65px;
-
-    height: 1px;
-
-    background: #111;
-
-    margin: 25px auto;
+.message{
+  max-width:390px;
+  margin:0 auto 28px;
+  font-size:15px;
+  line-height:1.8;
+  color:#444;
 }
 
-/* =========================
-   MESSAGE
-========================= */
-
-.message {
-
-    width: 100%;
-
-    max-width: 430px;
-
-    margin: 0 auto;
-
-    font-size: 16px;
-
-    line-height: 1.8;
+.details{
+  border-top:1px solid #ddd;
+  border-bottom:1px solid #ddd;
+  padding:22px 10px;
+  margin-bottom:25px;
 }
 
-/* =========================
-   INFORMATIONS
-========================= */
-
-.details {
-
-    width: 100%;
-
-    max-width: 450px;
-
-    margin: 30px auto;
+.detail{
+  margin:12px 0;
 }
 
-.detail {
-
-    padding: 15px 5px;
-
-    border-bottom: 1px solid #eee;
+.detail .label{
+  font-size:10px;
+  letter-spacing:3px;
+  color:#999;
+  text-transform:uppercase;
+  margin-bottom:5px;
 }
 
-.detail:first-child {
-
-    border-top: 1px solid #eee;
+.detail strong{
+  font-size:17px;
+  font-weight:500;
 }
 
-.detail-title {
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    color: #888;
-
-    text-transform: uppercase;
-
-    margin-bottom: 7px;
+.qr-title{
+  font-size:11px;
+  letter-spacing:2px;
+  color:#777;
+  margin-bottom:12px;
 }
 
-.detail-value {
-
-    font-size: 16px;
-
-    line-height: 1.5;
+.qr{
+  width:150px;
+  height:150px;
+  display:block;
+  margin:0 auto 15px;
+  border:8px solid white;
+  box-shadow:0 4px 15px rgba(0,0,0,.12);
 }
 
-/* =========================
-   QR CODE
-========================= */
-
-.qr-title {
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: 3px;
-
-    color: #777;
-
-    text-transform: uppercase;
+.buttons{
+  display:flex;
+  flex-direction:column;
+  gap:11px;
+  max-width:330px;
+  margin:20px auto 0;
 }
 
-.qr {
-
-    width: 180px;
-
-    height: 180px;
-
-    max-width: 70vw;
-
-    margin: 20px auto 10px;
-
-    display: block;
+.btn{
+  display:block;
+  text-decoration:none;
+  border-radius:40px;
+  padding:14px 18px;
+  font-family:inherit;
+  font-size:12px;
+  letter-spacing:1.5px;
+  transition:.3s;
 }
 
-.qr-text {
+.btn-map{
+  background:#222;
+  color:#fff;
+}
 
-    font-family: Arial, sans-serif;
+.btn-whatsapp{
+  background:#f3f3f3;
+  color:#222;
+  border:1px solid #ddd;
+}
 
-    font-size: 10px;
+.btn-replay{
+  margin-top:25px;
+  background:transparent;
+  color:#777;
+  border:1px solid #ddd;
+}
 
-    color: #888;
+.btn:active{
+  transform:scale(.97);
+}
 
-    margin-bottom: 25px;
+.footer{
+  margin-top:28px;
+  font-size:11px;
+  color:#aaa;
+  letter-spacing:2px;
 }
 
 /* =========================
-   BOUTONS
+   PETITES TAILLES
 ========================= */
 
-.buttons {
-
-    display: flex;
-
-    justify-content: center;
-
-    align-items: center;
-
-    gap: 10px;
-
-    flex-wrap: wrap;
-}
-
-.button {
-
-    display: inline-block;
-
-    padding: 14px 20px;
-
-    border-radius: 50px;
-
-    text-decoration: none;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    font-weight: bold;
-
-    letter-spacing: 1.5px;
-
-    text-transform: uppercase;
-
-    cursor: pointer;
-}
-
-.maps {
-
-    background: #111;
-
-    color: #fff;
-}
-
-.whatsapp {
-
-    border: 1px solid #111;
-
-    background: #fff;
-
-    color: #111;
-}
-
-/* =========================
-   REJOUER
-========================= */
-
-.replay {
-
-    margin-top: 30px;
-
-    padding: 13px 20px;
-
-    border-radius: 50px;
-
-    border: 1px solid #111;
-
-    background: #fff;
-
-    color: #111;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    letter-spacing: 1.5px;
-
-    cursor: pointer;
-}
-
-/* =========================
-   PIED
-========================= */
-
-.footer {
-
-    margin-top: 30px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 9px;
-
-    color: #aaa;
-}
-
-/* =========================
-   PETITS TELEPHONES
-========================= */
-
-@media (max-width: 380px) {
-
-    .envelope {
-
-        min-height: 175px;
-    }
-
-    .envelope.open .letter {
-
-        transform: translateY(-90px);
-    }
-
-    .open-button {
-
-        margin-top: 35px;
-    }
-
-    .card-inner {
-
-        padding: 32px 15px;
-    }
-
-    .message {
-
-        font-size: 15px;
-    }
-
-    .qr {
-
-        width: 160px;
-        height: 160px;
-    }
-
-    .button {
-
-        width: 100%;
-
-        max-width: 240px;
-    }
-}
-
-/* =========================
-   ACCESSIBILITE
-========================= */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .envelope {
-
-        animation: none;
-    }
-
-    .flap,
-    .letter,
-    .invitation.active {
-
-        transition: none;
-        animation: none;
-    }
+@media(max-width:380px){
+
+  .envelope{
+    height:195px;
+  }
+
+  .letter{
+    height:165px;
+  }
+
+  .envelope.open .letter{
+    transform:translateY(-100px);
+  }
+
+  .card{
+    padding:35px 18px;
+  }
+
+  .flower{
+    transform:scale(.72);
+  }
 }
 </style>
 </head>
@@ -680,46 +585,28 @@ h1 {
 
 <section class="cover" id="cover">
 
-    <div class="cover-content">
+  <div class="cover-title">
+    <div class="small">Une invitation vous attend</div>
+    <h1>NOBOUCHI</h1>
+    <p>Un moment spécial à partager</p>
+  </div>
 
-        <div class="subtitle">
-            Une invitation vous attend
-        </div>
+  <div class="envelope" id="envelope">
 
-        <div class="envelope" id="envelope">
-
-            <div class="envelope-body"></div>
-
-            <div class="letter">
-
-                <div class="letter-title">
-                    NOBOUCHI
-                </div>
-
-                <div class="letter-subtitle">
-                    ANNIVERSAIRE
-                </div>
-
-            </div>
-
-            <div class="flap"></div>
-
-        </div>
-
-        <button
-            class="open-button"
-            type="button"
-            onclick="openInvitation()">
-
-            OUVRIR L'INVITATION
-
-        </button>
-
-        <div class="touch">
-            Touchez pour ouvrir
-        </div>
-
+    <div class="letter">
+      <strong>NOBOUCHI</strong>
+      <span>ANNIVERSAIRE</span>
     </div>
+
+    <div class="envelope-body"></div>
+
+    <div class="flap"></div>
+
+  </div>
+
+  <button class="open-btn" onclick="openInvitation()">
+    OUVRIR L’INVITATION
+  </button>
 
 </section>
 
@@ -728,159 +615,150 @@ h1 {
      INVITATION
 ========================= -->
 
-<section
-    class="invitation"
-    id="invitation">
+<section class="invitation" id="invitation">
 
-    <div class="card">
+  <!-- FLEURS -->
 
-        <div class="card-inner">
+  <div class="flower f1" aria-hidden="true">
+    <div class="flower-shape">
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="flower-center"></span>
+    </div>
+  </div>
 
-            <div class="invitation-label">
-                Invitation
-            </div>
+  <div class="flower f2" aria-hidden="true">
+    <div class="flower-shape">
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="flower-center"></span>
+    </div>
+  </div>
 
-            <h1>
-                ANNIVERSAIRE
-            </h1>
+  <div class="flower f3" aria-hidden="true">
+    <div class="flower-shape">
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="flower-center"></span>
+    </div>
+  </div>
 
-            <div class="name">
-                NOBOUCHI
-            </div>
-
-            <div class="line"></div>
-
-            <p class="message">
-
-                J’ai le plaisir de vous inviter
-                à partager avec moi un moment
-                de joie et de convivialité
-                à l’occasion de mon anniversaire.
-
-            </p>
-
-
-            <!-- INFORMATIONS -->
-
-            <div class="details">
-
-                <div class="detail">
-
-                    <div class="detail-title">
-                        Date
-                    </div>
-
-                    <div class="detail-value">
-                        Samedi 19 septembre 2026
-                    </div>
-
-                </div>
-
-
-                <div class="detail">
-
-                    <div class="detail-title">
-                        Heure
-                    </div>
-
-                    <div class="detail-value">
-                        15h00
-                    </div>
-
-                </div>
+  <div class="flower f4" aria-hidden="true">
+    <div class="flower-shape">
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="petal"></span>
+      <span class="flower-center"></span>
+    </div>
+  </div>
 
 
-                <div class="detail">
+  <!-- PÉTALES FLOTTANTS -->
 
-                    <div class="detail-title">
-                        Lieu
-                    </div>
-
-                    <div class="detail-value">
-
-                        Derrière Bonne Fontaine<br>
-                        Carrefour Le Maire
-
-                    </div>
-
-                </div>
-
-            </div>
+  <div class="floating-petal p1"></div>
+  <div class="floating-petal p2"></div>
+  <div class="floating-petal p3"></div>
+  <div class="floating-petal p4"></div>
 
 
-            <div class="line"></div>
+  <!-- CARTE -->
+
+  <div class="card">
+
+    <div class="decor">✦ ✦ ✦</div>
+
+    <div class="subtitle">Vous êtes invité(e) à mon</div>
+
+    <h2>ANNIVERSAIRE</h2>
+
+    <div class="name">NOBOUCHI</div>
+
+    <p class="message">
+      J’ai le plaisir de vous inviter à partager avec moi
+      un moment de joie et de convivialité à l’occasion
+      de mon anniversaire.
+    </p>
 
 
-            <!-- QR CODE -->
+    <div class="details">
 
-            <div class="qr-title">
-                Localisation
-            </div>
+      <div class="detail">
+        <div class="label">Date</div>
+        <strong>Samedi 19 septembre 2026</strong>
+      </div>
 
-            <img
-                class="qr"
-                src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fmaps.app.goo.gl%2F5wrGmnecZxiPSMRS6%3Fg_st%3Dic"
-                alt="QR Code de localisation Google Maps"
-                loading="lazy"
-            >
+      <div class="detail">
+        <div class="label">Heure</div>
+        <strong>15h00</strong>
+      </div>
 
-            <div class="qr-text">
-
-                Scannez le QR Code
-                pour ouvrir l’itinéraire.
-
-            </div>
-
-
-            <!-- BOUTONS -->
-
-            <div class="buttons">
-
-                <a
-                    class="button maps"
-                    href="https://maps.app.goo.gl/5wrGmnecZxiPSMRS6?g_st=ic"
-                    target="_blank"
-                    rel="noopener noreferrer">
-
-                    Ouvrir Maps
-
-                </a>
-
-
-                <a
-                    class="button whatsapp"
-                    href="https://wa.me/?text=Bonjour%20NOBOUCHI%2C%20je%20confirme%20ma%20présence%20à%20ton%20anniversaire%20du%2019%20septembre%202026."
-                    target="_blank"
-                    rel="noopener noreferrer">
-
-                    Confirmer
-
-                </a>
-
-            </div>
-
-
-            <!-- REJOUER -->
-
-            <button
-                class="replay"
-                type="button"
-                onclick="replayInvitation()">
-
-                ↻ REVENIR À L'ENVELOPPE
-
-            </button>
-
-
-            <div class="footer">
-
-                Invitation personnelle — NOBOUCHI
-
-            </div>
-
-        </div>
+      <div class="detail">
+        <div class="label">Lieu</div>
+        <strong>Derrière Bonne Fontaine<br>
+        Carrefour Le Maire</strong>
+      </div>
 
     </div>
+
+
+    <div class="qr-title">
+      SCANNEZ POUR VOIR LE LIEU
+    </div>
+
+    <img
+      class="qr"
+      src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fmaps.app.goo.gl%2F5wrGmnecZxiPSMRS6%3Fg_st%3Dic"
+      alt="QR Code Google Maps"
+    >
+
+
+    <div class="buttons">
+
+      <a
+        class="btn btn-map"
+        href="https://maps.app.goo.gl/5wrGmnecZxiPSMRS6?g_st=ic"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        📍 OUVRIR GOOGLE MAPS
+      </a>
+
+      <a
+        class="btn btn-whatsapp"
+        href="https://wa.me/?text=Bonjour%20NOBOUCHI%2C%20je%20confirme%20ma%20présence%20à%20ton%20anniversaire%20du%2019%20septembre%202026."
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        💬 CONFIRMER MA PRÉSENCE
+      </a>
+
+    </div>
+
+
+    <button
+      class="btn btn-replay"
+      onclick="replayInvitation()"
+    >
+      ↻ REVENIR À L’ENVELOPPE
+    </button>
+
+
+    <div class="footer">
+      AU PLAISIR DE VOUS RETROUVER
+    </div>
+
+  </div>
 
 </section>
 
@@ -891,121 +769,68 @@ h1 {
    OUVRIR
 ========================= */
 
-function openInvitation() {
+function openInvitation(){
 
-    const envelope =
-        document.getElementById("envelope");
+  const envelope =
+    document.getElementById("envelope");
 
-    const cover =
-        document.getElementById("cover");
+  const cover =
+    document.getElementById("cover");
 
-    const invitation =
-        document.getElementById("invitation");
+  const invitation =
+    document.getElementById("invitation");
 
+  envelope.classList.add("open");
 
-    /* Lance l'animation */
+  setTimeout(function(){
 
-    envelope.classList.add("open");
+    cover.classList.add("hide");
 
+    setTimeout(function(){
 
-    /* Attend l'ouverture */
+      invitation.classList.add("show");
 
-    setTimeout(function () {
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
 
-        cover.style.opacity = "0";
+    },700);
 
-
-        setTimeout(function () {
-
-            cover.style.display = "none";
-
-            invitation.style.display = "block";
-
-            invitation.classList.add("active");
-
-
-            window.scrollTo({
-
-                top: 0,
-
-                behavior: "smooth"
-
-            });
-
-        }, 350);
-
-    }, 1300);
+  },1100);
 }
 
 
 /* =========================
-   REVENIR À L'ENVELOPPE
+   REVENIR À L’ENVELOPPE
 ========================= */
 
-function replayInvitation() {
+function replayInvitation(){
 
-    const envelope =
-        document.getElementById("envelope");
+  const envelope =
+    document.getElementById("envelope");
 
-    const cover =
-        document.getElementById("cover");
+  const cover =
+    document.getElementById("cover");
 
-    const invitation =
-        document.getElementById("invitation");
+  const invitation =
+    document.getElementById("invitation");
 
+  invitation.classList.remove("show");
 
-    /* Cache l'invitation */
+  setTimeout(function(){
 
-    invitation.classList.remove("active");
-
-    invitation.style.display = "none";
-
-
-    /* Ferme l'enveloppe */
+    cover.classList.remove("hide");
 
     envelope.classList.remove("open");
 
-
-    /* Réaffiche l'enveloppe */
-
-    cover.style.opacity = "1";
-
-    cover.style.display = "flex";
-
-
     window.scrollTo({
-
-        top: 0,
-
-        behavior: "smooth"
-
+      top:0,
+      behavior:"smooth"
     });
+
+  },400);
 }
-
-
-/* =========================
-   INITIALISATION
-========================= */
-
-document.addEventListener(
-    "DOMContentLoaded",
-    function () {
-
-        const cover =
-            document.getElementById("cover");
-
-        const invitation =
-            document.getElementById("invitation");
-
-
-        cover.style.display = "flex";
-
-        cover.style.opacity = "1";
-
-        invitation.style.display = "none";
-
-    }
-);
 
 </script>
 
