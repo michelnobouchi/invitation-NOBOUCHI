@@ -1,395 +1,212 @@
 <!DOCTYPE html>
-
 <html lang="fr">
-
 <head>
-
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <meta name="theme-color" content="#ffffff">
 
 <title>Invitation — NOBOUCHI</title>
 
 <style>
 
-/* =========================
-
-   BASE
-
-========================= */
-
 *{
-
   box-sizing:border-box;
-
   margin:0;
-
   padding:0;
-
 }
 
 html,body{
-
   width:100%;
-
   min-height:100%;
-
 }
 
 body{
-
   font-family:Georgia,"Times New Roman",serif;
-
   background:#fff;
-
   color:#222;
-
   overflow-x:hidden;
-
 }
 
+
 /* =========================
-
-   ÉCRAN ENVELOPPE
-
+   ENVELOPPE
 ========================= */
 
 .cover{
-
   min-height:100dvh;
-
   display:flex;
-
   flex-direction:column;
-
   justify-content:center;
-
   align-items:center;
-
   padding:25px 15px;
 
   background:
+    radial-gradient(circle at top,#fff,#f8f8f8 60%,#eeeeee);
 
-    radial-gradient(
-
-      circle at top,
-
-      #ffffff,
-
-      #f8f8f8 60%,
-
-      #eeeeee
-
-    );
-
-  transition:
-
-    opacity 1s ease,
-
-    visibility 1s ease;
-
+  transition:opacity 1s ease,visibility 1s ease;
 }
 
 .cover.hide{
-
   opacity:0;
-
   visibility:hidden;
-
   pointer-events:none;
-
 }
 
 .cover-title{
-
   text-align:center;
-
   margin-bottom:30px;
-
 }
 
 .cover-title .small{
-
   font-size:13px;
-
   letter-spacing:4px;
-
   text-transform:uppercase;
-
   color:#777;
-
   margin-bottom:10px;
-
 }
 
 .cover-title h1{
-
   font-size:clamp(28px,8vw,48px);
-
   letter-spacing:5px;
-
   font-weight:500;
-
 }
 
 .cover-title p{
-
   margin-top:10px;
-
   font-size:15px;
-
   color:#777;
-
 }
 
+
 /* =========================
-
    ENVELOPPE
-
 ========================= */
 
 .envelope{
-
   position:relative;
-
   width:min(340px,88vw);
-
   height:220px;
-
   perspective:1000px;
-
   margin-bottom:30px;
-
 }
 
 .envelope-body{
-
   position:absolute;
-
   inset:0;
-
   background:#fff;
-
   border:1px solid #ddd;
-
-  box-shadow:
-
-    0 18px 40px rgba(0,0,0,.13);
-
+  box-shadow:0 18px 40px rgba(0,0,0,.13);
   overflow:hidden;
-
   z-index:2;
-
 }
 
 .envelope-body:before,
-
 .envelope-body:after{
-
   content:"";
-
   position:absolute;
-
   bottom:0;
-
   width:0;
-
   height:0;
-
   border-style:solid;
-
 }
 
 .envelope-body:before{
-
   left:0;
-
-  border-width:
-
-    110px
-
-    170px
-
-    0
-
-    0;
-
-  border-color:
-
-    #f1f1f1
-
-    transparent
-
-    transparent
-
-    transparent;
-
+  border-width:110px 170px 0 0;
+  border-color:#f1f1f1 transparent transparent transparent;
 }
 
 .envelope-body:after{
-
   right:0;
-
-  border-width:
-
-    0
-
-    170px
-
-    110px
-
-    0;
-
-  border-color:
-
-    transparent
-
-    #f5f5f5
-
-    transparent
-
-    transparent;
-
+  border-width:0 170px 110px 0;
+  border-color:transparent #f5f5f5 transparent transparent;
 }
 
+
 /* =========================
-
    RABAT
-
 ========================= */
 
 .flap{
-
   position:absolute;
-
   top:0;
-
   left:0;
-
   width:100%;
-
   height:120px;
-
   background:#fafafa;
 
-  clip-path:
-
-    polygon(
-
-      0 0,
-
-      100% 0,
-
-      50% 100%
-
-    );
+  clip-path:polygon(
+    0 0,
+    100% 0,
+    50% 100%
+  );
 
   transform-origin:top center;
 
   transition:
-
     transform 1.2s cubic-bezier(.4,.1,.2,1);
 
   z-index:5;
 
   border-top:1px solid #ddd;
-
 }
 
+
 /* =========================
-
    LETTRE
-
 ========================= */
 
 .letter{
-
   position:absolute;
-
   left:7%;
-
   width:86%;
-
   height:185px;
-
   top:25px;
 
   background:#fff;
-
   border:1px solid #e4e4e4;
 
   display:flex;
-
   flex-direction:column;
-
   align-items:center;
-
   justify-content:center;
 
-  box-shadow:
-
-    0 5px 15px rgba(0,0,0,.08);
+  box-shadow:0 5px 15px rgba(0,0,0,.08);
 
   z-index:3;
 
   transition:
-
     transform 1.2s cubic-bezier(.4,.1,.2,1);
-
 }
 
 .letter strong{
-
   font-size:22px;
-
   letter-spacing:4px;
-
 }
 
 .letter span{
-
   font-size:11px;
-
   letter-spacing:3px;
-
   color:#999;
-
   margin-top:8px;
-
 }
 
-/* =========================
-
-   OUVERTURE
-
-========================= */
-
 .envelope.open .flap{
-
   transform:rotateX(180deg);
-
 }
 
 .envelope.open .letter{
-
   transform:translateY(-115px);
-
 }
 
+
 /* =========================
-
-   BOUTON OUVRIR
-
+   BOUTON
 ========================= */
 
 .open-btn{
-
   border:none;
-
   background:#222;
-
   color:#fff;
 
   padding:15px 28px;
@@ -397,637 +214,376 @@ body{
   border-radius:50px;
 
   font-family:inherit;
-
   font-size:13px;
-
   letter-spacing:2px;
 
   cursor:pointer;
 
-  box-shadow:
-
-    0 8px 20px rgba(0,0,0,.15);
+  box-shadow:0 8px 20px rgba(0,0,0,.15);
 
   transition:.3s;
-
 }
 
 .open-btn:active{
-
   transform:scale(.96);
-
 }
 
+
 /* =========================
-
    INVITATION
-
 ========================= */
 
 .invitation{
-
   display:none;
 
   position:relative;
 
   min-height:100dvh;
 
-  padding:
-
-    35px
-
-    15px
-
-    50px;
+  padding:35px 15px 50px;
 
   background:
-
     radial-gradient(
-
       circle at top,
-
       #fff 0%,
-
       #fafafa 55%,
-
       #f3f3f3 100%
-
     );
 
   overflow:hidden;
-
 }
 
 .invitation.show{
-
   display:block;
-
-  animation:
-
-    pageIn 1.2s ease forwards;
-
+  animation:pageIn 1.2s ease forwards;
 }
 
 @keyframes pageIn{
-
-  from{
-
-    opacity:0;
-
-  }
-
-  to{
-
-    opacity:1;
-
-  }
-
+  from{opacity:0;}
+  to{opacity:1;}
 }
 
+
 /* =========================
-
    FLEURS
-
 ========================= */
 
 .flower{
-
   position:absolute;
 
   width:82px;
-
   height:82px;
 
   opacity:0;
 
   z-index:1;
 
+  --s:1;
 }
 
 .flower-shape{
-
   position:relative;
 
   width:100%;
-
   height:100%;
 
-  animation:
-
-    sway 5s ease-in-out infinite alternate;
-
+  animation:sway 5s ease-in-out infinite alternate;
 }
 
 .petal{
-
   position:absolute;
 
   left:50%;
-
   top:50%;
 
   width:31px;
-
   height:47px;
 
   background:
-
     radial-gradient(
-
       circle at 35% 25%,
-
       #fff9fa 0%,
-
       #f7c1cc 35%,
-
       #d95b73 75%,
-
       #a91f3c 100%
-
     );
 
   border-radius:
+    65% 65% 45% 45%;
 
-    65%
-
-    65%
-
-    45%
-
-    45%;
-
-  transform-origin:
-
-    50%
-
-    100%;
+  transform-origin:50% 100%;
 
   box-shadow:
-
     0 4px 12px rgba(130,20,45,.18),
-
     inset 2px 2px 5px rgba(255,255,255,.55);
-
 }
 
-/* pétales */
-
 .petal:nth-child(1){
-
-  transform:
-
-    translate(-50%,-100%)
-
-    rotate(0deg);
-
+  transform:translate(-50%,-100%) rotate(0deg);
 }
 
 .petal:nth-child(2){
-
-  transform:
-
-    translate(-50%,-100%)
-
-    rotate(72deg);
-
+  transform:translate(-50%,-100%) rotate(72deg);
 }
 
 .petal:nth-child(3){
-
-  transform:
-
-    translate(-50%,-100%)
-
-    rotate(144deg);
-
+  transform:translate(-50%,-100%) rotate(144deg);
 }
 
 .petal:nth-child(4){
-
-  transform:
-
-    translate(-50%,-100%)
-
-    rotate(216deg);
-
+  transform:translate(-50%,-100%) rotate(216deg);
 }
 
 .petal:nth-child(5){
-
-  transform:
-
-    translate(-50%,-100%)
-
-    rotate(288deg);
-
+  transform:translate(-50%,-100%) rotate(288deg);
 }
 
-/* centre de la fleur */
-
 .flower-center{
-
   position:absolute;
 
   left:50%;
-
   top:50%;
 
   width:19px;
-
   height:19px;
 
-  transform:
-
-    translate(-50%,-50%);
+  transform:translate(-50%,-50%);
 
   border-radius:50%;
 
   background:
-
     radial-gradient(
-
       circle at 35% 30%,
-
       #f6dca5,
-
       #b51f3b 70%
-
     );
 
   box-shadow:
-
     0 3px 8px rgba(120,20,40,.25);
-
 }
 
+
 /* =========================
-
-   POSITIONS DES FLEURS
-
+   POSITIONS
 ========================= */
 
 .f1{
-
   top:3%;
-
   left:-12px;
-
 }
 
 .f2{
-
   top:10%;
-
   right:-12px;
-
-  transform:scale(.78);
-
+  --s:.78;
 }
 
 .f3{
-
   bottom:8%;
-
   left:-12px;
-
-  transform:scale(.82);
-
+  --s:.82;
 }
 
 .f4{
-
   bottom:4%;
-
   right:-12px;
-
-  transform:scale(.75);
-
+  --s:.75;
 }
 
+
 /* =========================
-
-   APPARITION DES FLEURS
-
+   APPARITION FLEURS
 ========================= */
 
 .invitation.show .f1{
-
-  animation:
-
-    bloom 1.4s .2s ease forwards;
-
+  animation:bloom 1.4s .2s ease forwards;
 }
 
 .invitation.show .f2{
-
-  animation:
-
-    bloom 1.4s .6s ease forwards;
-
+  animation:bloom 1.4s .6s ease forwards;
 }
 
 .invitation.show .f3{
-
-  animation:
-
-    bloom 1.4s 1s ease forwards;
-
+  animation:bloom 1.4s 1s ease forwards;
 }
 
 .invitation.show .f4{
-
-  animation:
-
-    bloom 1.4s 1.4s ease forwards;
-
+  animation:bloom 1.4s 1.4s ease forwards;
 }
 
 @keyframes bloom{
 
   0%{
-
     opacity:0;
-
-    transform:
-
-      scale(.1)
-
-      rotate(-35deg);
-
+    transform:scale(calc(var(--s)*.1)) rotate(-35deg);
   }
 
   55%{
-
     opacity:1;
-
-    transform:
-
-      scale(1.12)
-
-      rotate(8deg);
-
+    transform:scale(calc(var(--s)*1.12)) rotate(8deg);
   }
 
   100%{
-
     opacity:1;
-
-    transform:
-
-      scale(1)
-
-      rotate(0deg);
-
+    transform:scale(var(--s)) rotate(0deg);
   }
-
 }
-
-/* mouvement léger */
 
 @keyframes sway{
 
   0%{
-
     transform:rotate(-3deg);
-
   }
 
   100%{
-
     transform:rotate(4deg);
-
   }
-
 }
 
+
 /* =========================
-
    PÉTALES QUI TOMBENT
-
 ========================= */
 
 .falling-petals{
-
   position:absolute;
-
   inset:0;
 
   overflow:hidden;
-
   pointer-events:none;
 
   z-index:2;
-
 }
 
 .falling-petals span{
-
   position:absolute;
 
   top:-30px;
 
   width:10px;
-
   height:17px;
 
   border-radius:
-
-    70%
-
-    30%
-
-    70%
-
-    30%;
+    70% 30% 70% 30%;
 
   opacity:0;
 
   background:
-
     linear-gradient(
-
       145deg,
-
       #fff0f3,
-
       #e78b9e 55%,
-
       #a91f3c
-
     );
 
   box-shadow:
-
     0 2px 6px rgba(130,20,45,.16);
-
 }
 
-/* positions */
-
 .falling-petals span:nth-child(1){
-
   left:5%;
-
   animation:fall 7s 1.5s linear infinite;
-
 }
 
 .falling-petals span:nth-child(2){
-
   left:14%;
-
   animation:fall 9s 2.8s linear infinite;
-
 }
 
 .falling-petals span:nth-child(3){
-
   left:25%;
-
   animation:fall 8s 3.5s linear infinite;
-
 }
 
 .falling-petals span:nth-child(4){
-
   left:37%;
-
   animation:fall 10s 1.8s linear infinite;
-
 }
 
 .falling-petals span:nth-child(5){
-
   left:48%;
-
   animation:fall 7.5s 4s linear infinite;
-
 }
 
 .falling-petals span:nth-child(6){
-
   left:59%;
-
   animation:fall 9s 2.2s linear infinite;
-
 }
 
 .falling-petals span:nth-child(7){
-
   left:68%;
-
   animation:fall 8s 3s linear infinite;
-
 }
 
 .falling-petals span:nth-child(8){
-
   left:78%;
-
   animation:fall 10s 1.2s linear infinite;
-
 }
 
 .falling-petals span:nth-child(9){
-
   left:87%;
-
   animation:fall 7s 4.5s linear infinite;
-
 }
 
 .falling-petals span:nth-child(10){
-
   left:94%;
-
   animation:fall 9s 2.5s linear infinite;
-
 }
 
 .falling-petals span:nth-child(11){
-
   left:31%;
-
   animation:fall 8.5s 5s linear infinite;
-
 }
 
 .falling-petals span:nth-child(12){
-
   left:72%;
-
   animation:fall 9.5s 5.5s linear infinite;
-
 }
-
-/* animation */
 
 @keyframes fall{
 
   0%{
-
     opacity:0;
 
     transform:
-
       translateY(-30px)
-
       translateX(0)
-
       rotate(0deg);
-
   }
 
   10%{
-
     opacity:.8;
-
   }
 
   50%{
-
     opacity:.75;
 
     transform:
-
       translateY(45vh)
-
       translateX(35px)
-
       rotate(160deg);
-
   }
 
   80%{
-
     opacity:.6;
-
   }
 
   100%{
-
     opacity:0;
 
     transform:
-
       translateY(110vh)
-
       translateX(-45px)
-
       rotate(360deg);
-
   }
-
 }
 
+
 /* =========================
-
    CARTE
-
 ========================= */
 
 .card{
-
   position:relative;
 
   z-index:3;
@@ -1036,30 +592,19 @@ body{
 
   margin:0 auto;
 
-  padding:
+  padding:42px 25px;
 
-    42px
-
-    25px;
-
-  background:
-
-    rgba(255,255,255,.96);
+  background:rgba(255,255,255,.96);
 
   border:1px solid #dedede;
 
   box-shadow:
-
     0 20px 55px rgba(0,0,0,.10);
 
   text-align:center;
-
 }
 
-/* décoration */
-
 .decor{
-
   font-size:25px;
 
   letter-spacing:8px;
@@ -1067,11 +612,9 @@ body{
   color:#b51f3b;
 
   margin-bottom:15px;
-
 }
 
 .card .subtitle{
-
   font-size:12px;
 
   letter-spacing:5px;
@@ -1079,31 +622,19 @@ body{
   color:#888;
 
   text-transform:uppercase;
-
 }
 
 .card h2{
-
-  font-size:
-
-    clamp(30px,9vw,52px);
+  font-size:clamp(30px,9vw,52px);
 
   font-weight:500;
 
   letter-spacing:6px;
 
-  margin:
-
-    10px
-
-    0
-
-    5px;
-
+  margin:10px 0 5px;
 }
 
 .card .name{
-
   font-size:18px;
 
   letter-spacing:5px;
@@ -1111,65 +642,44 @@ body{
   color:#777;
 
   margin-bottom:25px;
-
 }
 
+
 /* =========================
-
    MESSAGE
-
 ========================= */
 
 .message{
-
   max-width:390px;
 
-  margin:
-
-    0
-
-    auto
-
-    28px;
+  margin:0 auto 28px;
 
   font-size:15px;
 
   line-height:1.8;
 
   color:#444;
-
 }
 
+
 /* =========================
-
-   INFORMATIONS
-
+   DÉTAILS
 ========================= */
 
 .details{
-
   border-top:1px solid #ddd;
-
   border-bottom:1px solid #ddd;
 
-  padding:
-
-    22px
-
-    10px;
+  padding:22px 10px;
 
   margin-bottom:25px;
-
 }
 
 .detail{
-
   margin:12px 0;
-
 }
 
 .detail .label{
-
   font-size:10px;
 
   letter-spacing:3px;
@@ -1179,25 +689,20 @@ body{
   text-transform:uppercase;
 
   margin-bottom:5px;
-
 }
 
 .detail strong{
-
   font-size:17px;
 
   font-weight:500;
-
 }
 
+
 /* =========================
-
    QR CODE
-
 ========================= */
 
 .qr-title{
-
   font-size:11px;
 
   letter-spacing:2px;
@@ -1205,41 +710,28 @@ body{
   color:#777;
 
   margin-bottom:12px;
-
 }
 
 .qr{
-
   width:150px;
-
   height:150px;
 
   display:block;
 
-  margin:
-
-    0
-
-    auto
-
-    15px;
+  margin:0 auto 15px;
 
   border:8px solid white;
 
   box-shadow:
-
     0 4px 15px rgba(0,0,0,.12);
-
 }
 
+
 /* =========================
-
    BOUTONS
-
 ========================= */
 
 .buttons{
-
   display:flex;
 
   flex-direction:column;
@@ -1248,29 +740,17 @@ body{
 
   max-width:330px;
 
-  margin:
-
-    20px
-
-    auto
-
-    0;
-
+  margin:20px auto 0;
 }
 
 .btn{
-
   display:block;
 
   text-decoration:none;
 
   border-radius:40px;
 
-  padding:
-
-    14px
-
-    18px;
+  padding:14px 18px;
 
   font-family:inherit;
 
@@ -1279,29 +759,22 @@ body{
   letter-spacing:1.5px;
 
   transition:.3s;
-
 }
 
 .btn-map{
-
   background:#222;
-
   color:#fff;
-
 }
 
 .btn-whatsapp{
-
   background:#f3f3f3;
 
   color:#222;
 
   border:1px solid #ddd;
-
 }
 
 .btn-replay{
-
   margin-top:25px;
 
   background:transparent;
@@ -1312,22 +785,19 @@ body{
 
   width:100%;
 
+  cursor:pointer;
 }
 
 .btn:active{
-
   transform:scale(.97);
-
 }
 
+
 /* =========================
-
    FOOTER
-
 ========================= */
 
 .footer{
-
   margin-top:28px;
 
   font-size:11px;
@@ -1335,65 +805,47 @@ body{
   color:#aaa;
 
   letter-spacing:2px;
-
 }
 
+
 /* =========================
-
-   PETITS TÉLÉPHONES
-
+   PETITS ÉCRANS
 ========================= */
 
 @media(max-width:380px){
 
   .envelope{
-
     height:195px;
-
   }
 
   .letter{
-
     height:165px;
-
   }
 
   .envelope.open .letter{
-
-    transform:
-
-      translateY(-100px);
-
+    transform:translateY(-100px);
   }
 
   .card{
-
-    padding:
-
-      35px
-
-      18px;
-
+    padding:35px 18px;
   }
 
   .flower{
-
-    transform:scale(.72);
-
+    width:70px;
+    height:70px;
   }
 
 }
 
 </style>
-
 </head>
+
 
 <body>
 
+
 <!-- ==================================================
-
-     ENVELOPPE
-
+     ÉCRAN ENVELOPPE
 ================================================== -->
 
 <section class="cover" id="cover">
@@ -1401,107 +853,75 @@ body{
   <div class="cover-title">
 
     <div class="small">
-
       Une invitation vous attend
-
     </div>
 
     <h1>
-
       NOBOUCHI
-
     </h1>
 
     <p>
-
       Un moment spécial à partager
-
     </p>
 
   </div>
 
-  <div class="envelope" id="envelope">
 
-    <!-- Lettre -->
+  <div class="envelope" id="envelope">
 
     <div class="letter">
 
       <strong>
-
         NOBOUCHI
-
       </strong>
 
       <span>
-
         ANNIVERSAIRE
-
       </span>
 
     </div>
 
-    <!-- Corps -->
-
     <div class="envelope-body"></div>
-
-    <!-- Rabat -->
 
     <div class="flap"></div>
 
   </div>
 
+
   <button
-
     class="open-btn"
-
     onclick="openInvitation()"
-
   >
-
     OUVRIR L’INVITATION
-
   </button>
 
 </section>
 
+
+
 <!-- ==================================================
-
      INVITATION
-
 ================================================== -->
 
 <section
-
   class="invitation"
-
   id="invitation"
-
 >
 
-  <!-- ==================================================
 
-       FLEURS
-
-  ================================================== -->
+  <!-- FLEUR 1 -->
 
   <div
-
     class="flower f1"
-
     aria-hidden="true"
-
   >
 
     <div class="flower-shape">
 
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
 
       <span class="flower-center"></span>
@@ -1510,24 +930,21 @@ body{
 
   </div>
 
-  <div
 
+
+  <!-- FLEUR 2 -->
+
+  <div
     class="flower f2"
-
     aria-hidden="true"
-
   >
 
     <div class="flower-shape">
 
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
 
       <span class="flower-center"></span>
@@ -1536,24 +953,21 @@ body{
 
   </div>
 
-  <div
 
+
+  <!-- FLEUR 3 -->
+
+  <div
     class="flower f3"
-
     aria-hidden="true"
-
   >
 
     <div class="flower-shape">
 
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
 
       <span class="flower-center"></span>
@@ -1561,25 +975,22 @@ body{
     </div>
 
   </div>
+
+
+
+  <!-- FLEUR 4 -->
 
   <div
-
     class="flower f4"
-
     aria-hidden="true"
-
   >
 
     <div class="flower-shape">
 
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
-
       <span class="petal"></span>
 
       <span class="flower-center"></span>
@@ -1587,187 +998,166 @@ body{
     </div>
 
   </div>
+
+
 
   <!-- ==================================================
-
-       PÉTALES QUI TOMBENT
-
+       PÉTALES
   ================================================== -->
 
   <div
-
     class="falling-petals"
-
     aria-hidden="true"
-
   >
 
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
-
     <span></span>
 
   </div>
 
+
+
   <!-- ==================================================
-
-       CARTE
-
+       CARTE D'INVITATION
   ================================================== -->
 
   <div class="card">
 
     <div class="decor">
-
       ✦ ✦ ✦
-
     </div>
+
 
     <div class="subtitle">
-
       Vous êtes invité(e) à mon
-
     </div>
+
 
     <h2>
-
       ANNIVERSAIRE
-
     </h2>
 
+
     <div class="name">
-
       NOBOUCHI
-
     </div>
+
 
     <p class="message">
 
       J’ai le plaisir de vous inviter
-
       à partager avec moi un moment
-
       de joie et de convivialité à
-
       l’occasion de mon anniversaire.
 
     </p>
 
-    <!-- INFORMATIONS -->
+
+
+    <!-- DÉTAILS -->
 
     <div class="details">
 
       <div class="detail">
 
         <div class="label">
-
           Date
-
         </div>
 
         <strong>
-
           Samedi 19 septembre 2026
-
         </strong>
 
       </div>
 
+
       <div class="detail">
 
         <div class="label">
-
           Heure
-
         </div>
 
         <strong>
-
           15h00
-
         </strong>
 
       </div>
 
+
       <div class="detail">
 
         <div class="label">
-
           Lieu
-
         </div>
 
         <strong>
-
           Derrière Bonne Fontaine<br>
-
           Carrefour Le Maire
-
         </strong>
 
       </div>
 
     </div>
 
-    <!-- QR CODE -->
+
+
+    <!-- ==================================================
+         QR CODE — NOUVEAU LIEN
+    ================================================== -->
 
     <div class="qr-title">
-
       SCANNEZ POUR VOIR LE LIEU
-
     </div>
 
-    <img
 
+    <img
       class="qr"
 
-      src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fmaps.app.goo.gl%2F5wrGmnecZxiPSMRS6%3Fg_st%3Dic"
+      src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fmaps.app.goo.gl%2FBY3xGTzbBPLh2LBbA%3Fg_st%3Dic"
 
       alt="QR Code Google Maps"
-
     >
 
-    <!-- BOUTONS -->
+
+
+    <!-- ==================================================
+         BOUTONS
+    ================================================== -->
 
     <div class="buttons">
 
-      <a
 
+      <!-- NOUVEAU LIEN GOOGLE MAPS -->
+
+      <a
         class="btn btn-map"
 
-        href="https://maps.app.goo.gl/5wrGmnecZxiPSMRS6?g_st=ic"
+        href="https://maps.app.goo.gl/BY3xGTzbBPLh2LBbA?g_st=ic"
 
         target="_blank"
 
         rel="noopener noreferrer"
-
       >
 
         📍 OUVRIR GOOGLE MAPS
 
       </a>
 
-      <a
 
+
+      <!-- WHATSAPP -->
+
+      <a
         class="btn btn-whatsapp"
 
         href="https://wa.me/?text=Bonjour%20NOBOUCHI%2C%20je%20confirme%20ma%20présence%20à%20ton%20anniversaire%20du%2019%20septembre%202026."
@@ -1775,87 +1165,78 @@ body{
         target="_blank"
 
         rel="noopener noreferrer"
-
       >
 
         💬 CONFIRMER MA PRÉSENCE
 
       </a>
 
+
     </div>
 
-    <!-- REJOUER -->
+
+
+    <!-- RETOUR ENVELOPPE -->
 
     <button
-
       class="btn btn-replay"
-
       onclick="replayInvitation()"
-
     >
 
       ↻ REVENIR À L’ENVELOPPE
 
     </button>
 
+
     <div class="footer">
-
       AU PLAISIR DE VOUS RETROUVER
-
     </div>
+
 
   </div>
 
 </section>
 
+
+
 <!-- ==================================================
-
      JAVASCRIPT
-
 ================================================== -->
 
 <script>
 
-/* =========================
-
-   OUVRIR L'INVITATION
-
-========================= */
 
 function openInvitation(){
 
   const envelope =
-
     document.getElementById("envelope");
 
   const cover =
-
     document.getElementById("cover");
 
   const invitation =
-
     document.getElementById("invitation");
 
-  /* ouverture enveloppe */
+
+  /* Ouvre l'enveloppe */
 
   envelope.classList.add("open");
 
-  /* attendre l'animation */
+
+  /* Attend l'animation */
 
   setTimeout(function(){
 
     cover.classList.add("hide");
+
 
     setTimeout(function(){
 
       invitation.classList.add("show");
 
       window.scrollTo({
-
         top:0,
-
         behavior:"smooth"
-
       });
 
     },700);
@@ -1864,54 +1245,46 @@ function openInvitation(){
 
 }
 
-/* =========================
 
-   REVENIR À L'ENVELOPPE
-
-========================= */
 
 function replayInvitation(){
 
   const envelope =
-
     document.getElementById("envelope");
 
   const cover =
-
     document.getElementById("cover");
 
   const invitation =
-
     document.getElementById("invitation");
 
-  /* cacher invitation */
+
+  /* Cache l'invitation */
 
   invitation.classList.remove("show");
 
+
   setTimeout(function(){
 
-    /* remettre enveloppe */
+    /* Retour à l'enveloppe */
 
     cover.classList.remove("hide");
 
-    /* fermer enveloppe */
+    /* Ferme l'enveloppe */
 
     envelope.classList.remove("open");
 
     window.scrollTo({
-
       top:0,
-
       behavior:"smooth"
-
     });
 
   },400);
 
 }
 
+
 </script>
 
 </body>
-
 </html>
