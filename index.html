@@ -3,178 +3,673 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+
 <title>Invitation — NOBOUCHI</title>
 
 <style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+}
+
+body {
+    background: #fff;
+    color: #111;
+    font-family: Georgia, "Times New Roman", serif;
+}
+
 /* =========================
+   ÉCRAN ENVELOPPE
+========================= */
 
-   ANIMATION PREMIUM MOBILE
+.cover {
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 25px 15px;
+    background: linear-gradient(135deg, #fff, #f5f5f5);
+    transition: opacity .4s ease;
+}
 
+.cover-content {
+    width: 100%;
+    max-width: 430px;
+    text-align: center;
+}
+
+.subtitle {
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #777;
+    text-transform: uppercase;
+    margin-bottom: 35px;
+}
+
+/* =========================
+   ENVELOPPE
 ========================= */
 
 .envelope {
+    width: min(340px, 88vw);
+    height: min(220px, 57vw);
+    min-height: 190px;
+    margin: 0 auto;
+    position: relative;
+    perspective: 1000px;
 
-    animation: floatEnvelope 3s ease-in-out infinite;
-
+    animation: floating 3s ease-in-out infinite;
 }
 
-@keyframes floatEnvelope {
-
+@keyframes floating {
     0%, 100% {
-
         transform: translateY(0);
-
     }
 
     50% {
-
         transform: translateY(-5px);
-
     }
-
 }
 
-/* Petit mouvement au moment de l'ouverture */
+/* Corps */
 
-.envelope.open {
+.envelope-body {
+    position: absolute;
+    inset: 0;
 
-    animation: envelopeOpen .45s ease forwards;
+    background: #fff;
 
+    border: 1px solid #dcdcdc;
+
+    box-shadow: 0 20px 50px rgba(0,0,0,.12);
+
+    overflow: hidden;
 }
 
-@keyframes envelopeOpen {
+.envelope-body::before {
+    content: "";
 
-    0% {
+    position: absolute;
+    inset: 0;
 
-        transform: scale(1);
+    background:
+        linear-gradient(35deg,
+        transparent 49.5%,
+        #ddd 50%,
+        transparent 50.5%),
 
-    }
-
-    50% {
-
-        transform: scale(1.025);
-
-    }
-
-    100% {
-
-        transform: scale(1);
-
-    }
-
+        linear-gradient(-35deg,
+        transparent 49.5%,
+        #ddd 50%,
+        transparent 50.5%);
 }
 
-/* Rabat */
+/* =========================
+   LETTRE
+========================= */
+
+.letter {
+    position: absolute;
+
+    z-index: 3;
+
+    left: 8%;
+    bottom: 8%;
+
+    width: 84%;
+    height: 78%;
+
+    background: #fff;
+
+    border: 1px solid #eee;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    transition:
+        transform 1.35s cubic-bezier(.16,1,.3,1),
+        box-shadow 1s ease;
+}
+
+.letter-title {
+    font-size: clamp(20px, 7vw, 25px);
+    letter-spacing: 4px;
+}
+
+.letter-subtitle {
+    margin-top: 10px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: #777;
+}
+
+/* =========================
+   RABAT
+========================= */
 
 .flap {
+    position: absolute;
+
+    z-index: 5;
+
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 58%;
+
+    background: #fff;
+
+    border: 1px solid #ddd;
+
+    clip-path: polygon(
+        0 0,
+        100% 0,
+        50% 100%
+    );
 
     transform-origin: top center;
 
     backface-visibility: hidden;
 
     transition:
-
         transform 1.25s cubic-bezier(.22,.61,.36,1);
+}
 
+/* =========================
+   OUVERTURE
+========================= */
+
+.envelope.open {
+    animation: opening .45s ease forwards;
+}
+
+@keyframes opening {
+
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.025);
+    }
+
+    100% {
+        transform: scale(1);
+    }
 }
 
 .envelope.open .flap {
-
     transform: rotateX(180deg);
-
-}
-
-/* Lettre qui sort */
-
-.letter {
-
-    transition:
-
-        transform 1.35s cubic-bezier(.16,1,.3,1),
-
-        box-shadow 1s ease;
-
 }
 
 .envelope.open .letter {
-
     transform: translateY(-115px);
 
-    box-shadow: 0 15px 35px rgba(0,0,0,.08);
-
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.08);
 }
 
-/* Apparition élégante de l'invitation */
+/* =========================
+   BOUTON
+========================= */
+
+.open-button {
+
+    margin-top: 45px;
+
+    padding: 15px 28px;
+
+    border: none;
+
+    border-radius: 50px;
+
+    background: #111;
+
+    color: #fff;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    letter-spacing: 2px;
+
+    cursor: pointer;
+
+    -webkit-tap-highlight-color: transparent;
+
+    transition:
+        transform .2s ease,
+        opacity .4s ease;
+}
+
+.open-button:active {
+    transform: scale(.96);
+}
+
+.touch {
+
+    margin-top: 13px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    color: #999;
+}
+
+/* =========================
+   INVITATION
+========================= */
+
+.invitation {
+
+    display: none;
+
+    width: 100%;
+
+    min-height: 100vh;
+    min-height: 100dvh;
+
+    padding: 30px 12px 50px;
+
+    background: #fff;
+}
 
 .invitation.active {
 
+    display: block;
+
     animation:
-
-        invitationIn 1s cubic-bezier(.16,1,.3,1) forwards;
-
+        invitationIn
+        1s
+        cubic-bezier(.16,1,.3,1)
+        forwards;
 }
 
 @keyframes invitationIn {
 
     0% {
-
         opacity: 0;
-
-        transform: translateY(35px) scale(.98);
-
+        transform:
+            translateY(35px)
+            scale(.98);
     }
 
     100% {
-
         opacity: 1;
-
-        transform: translateY(0) scale(1);
-
+        transform:
+            translateY(0)
+            scale(1);
     }
-
 }
 
-/* Sur petits téléphones */
+/* =========================
+   CARTE
+========================= */
+
+.card {
+
+    width: 100%;
+
+    max-width: 570px;
+
+    margin: 0 auto;
+
+    padding: 7px;
+
+    border: 1px solid #ddd;
+
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.08);
+}
+
+.card-inner {
+
+    border: 1px solid #eee;
+
+    padding: 40px 20px;
+
+    text-align: center;
+}
+
+/* =========================
+   TITRES
+========================= */
+
+.invitation-label {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 4px;
+
+    color: #888;
+
+    text-transform: uppercase;
+}
+
+h1 {
+
+    margin-top: 18px;
+
+    font-size:
+        clamp(30px, 10vw, 42px);
+
+    font-weight: normal;
+
+    letter-spacing: 4px;
+}
+
+.name {
+
+    margin-top: 10px;
+
+    font-size:
+        clamp(22px, 7vw, 28px);
+
+    letter-spacing: 6px;
+}
+
+.line {
+
+    width: 65px;
+
+    height: 1px;
+
+    background: #111;
+
+    margin: 25px auto;
+}
+
+/* =========================
+   MESSAGE
+========================= */
+
+.message {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    margin: 0 auto;
+
+    font-size: 16px;
+
+    line-height: 1.8;
+}
+
+/* =========================
+   INFORMATIONS
+========================= */
+
+.details {
+
+    width: 100%;
+
+    max-width: 450px;
+
+    margin: 30px auto;
+}
+
+.detail {
+
+    padding: 15px 5px;
+
+    border-bottom: 1px solid #eee;
+}
+
+.detail:first-child {
+
+    border-top: 1px solid #eee;
+}
+
+.detail-title {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: #888;
+
+    text-transform: uppercase;
+
+    margin-bottom: 7px;
+}
+
+.detail-value {
+
+    font-size: 16px;
+
+    line-height: 1.5;
+}
+
+/* =========================
+   QR CODE
+========================= */
+
+.qr-title {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 3px;
+
+    color: #777;
+
+    text-transform: uppercase;
+}
+
+.qr {
+
+    width: 180px;
+
+    height: 180px;
+
+    max-width: 70vw;
+
+    margin: 20px auto 10px;
+
+    display: block;
+}
+
+.qr-text {
+
+    font-family: Arial, sans-serif;
+
+    font-size: 10px;
+
+    color: #888;
+
+    margin-bottom: 25px;
+}
+
+/* =========================
+   BOUTONS
+========================= */
+
+.buttons {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 10px;
+
+    flex-wrap: wrap;
+}
+
+.button {
+
+    display: inline-block;
+
+    padding: 14px 20px;
+
+    border-radius: 50px;
+
+    text-decoration: none;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+    letter-spacing: 1.5px;
+
+    text-transform: uppercase;
+
+    cursor: pointer;
+}
+
+.maps {
+
+    background: #111;
+
+    color: #fff;
+}
+
+.whatsapp {
+
+    border: 1px solid #111;
+
+    background: #fff;
+
+    color: #111;
+}
+
+/* =========================
+   REJOUER
+========================= */
+
+.replay {
+
+    margin-top: 30px;
+
+    padding: 13px 20px;
+
+    border-radius: 50px;
+
+    border: 1px solid #111;
+
+    background: #fff;
+
+    color: #111;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+}
+
+/* =========================
+   PIED
+========================= */
+
+.footer {
+
+    margin-top: 30px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 9px;
+
+    color: #aaa;
+}
+
+/* =========================
+   PETITS TELEPHONES
+========================= */
 
 @media (max-width: 380px) {
+
+    .envelope {
+
+        min-height: 175px;
+    }
 
     .envelope.open .letter {
 
         transform: translateY(-90px);
-
     }
 
-    .envelope {
+    .open-button {
 
-        animation-duration: 3.5s;
-
+        margin-top: 35px;
     }
 
+    .card-inner {
+
+        padding: 32px 15px;
+    }
+
+    .message {
+
+        font-size: 15px;
+    }
+
+    .qr {
+
+        width: 160px;
+        height: 160px;
+    }
+
+    .button {
+
+        width: 100%;
+
+        max-width: 240px;
+    }
 }
 
-/* Respecte les réglages d'accessibilité du téléphone */
+/* =========================
+   ACCESSIBILITE
+========================= */
 
 @media (prefers-reduced-motion: reduce) {
 
     .envelope {
 
         animation: none;
-
     }
 
     .flap,
-
     .letter,
-
     .invitation.active {
 
         transition: none;
-
         animation: none;
-
     }
-
 }
+</style>
 </head>
 
 <body>
@@ -196,6 +691,7 @@
             <div class="envelope-body"></div>
 
             <div class="letter">
+
                 <div class="letter-title">
                     NOBOUCHI
                 </div>
@@ -203,14 +699,20 @@
                 <div class="letter-subtitle">
                     ANNIVERSAIRE
                 </div>
+
             </div>
 
             <div class="flap"></div>
 
         </div>
 
-        <button class="open-button" onclick="openInvitation()">
+        <button
+            class="open-button"
+            type="button"
+            onclick="openInvitation()">
+
             OUVRIR L'INVITATION
+
         </button>
 
         <div class="touch">
@@ -226,7 +728,9 @@
      INVITATION
 ========================= -->
 
-<section class="invitation" id="invitation">
+<section
+    class="invitation"
+    id="invitation">
 
     <div class="card">
 
@@ -247,11 +751,16 @@
             <div class="line"></div>
 
             <p class="message">
-                J’ai le plaisir de vous inviter à partager
-                avec moi un moment de joie et de convivialité
+
+                J’ai le plaisir de vous inviter
+                à partager avec moi un moment
+                de joie et de convivialité
                 à l’occasion de mon anniversaire.
+
             </p>
 
+
+            <!-- INFORMATIONS -->
 
             <div class="details">
 
@@ -288,8 +797,10 @@
                     </div>
 
                     <div class="detail-value">
+
                         Derrière Bonne Fontaine<br>
                         Carrefour Le Maire
+
                     </div>
 
                 </div>
@@ -300,43 +811,60 @@
             <div class="line"></div>
 
 
+            <!-- QR CODE -->
+
             <div class="qr-title">
                 Localisation
             </div>
 
-            <!-- QR CODE -->
             <img
                 class="qr"
                 src="https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=https%3A%2F%2Fmaps.app.goo.gl%2F5wrGmnecZxiPSMRS6%3Fg_st%3Dic"
-                alt="QR Code Google Maps"
+                alt="QR Code de localisation Google Maps"
+                loading="lazy"
             >
 
             <div class="qr-text">
-                Scannez le QR Code pour ouvrir l’itinéraire.
+
+                Scannez le QR Code
+                pour ouvrir l’itinéraire.
+
             </div>
 
+
+            <!-- BOUTONS -->
 
             <div class="buttons">
 
                 <a
                     class="button maps"
                     href="https://maps.app.goo.gl/5wrGmnecZxiPSMRS6?g_st=ic"
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
+
                     Ouvrir Maps
+
                 </a>
+
 
                 <a
                     class="button whatsapp"
                     href="https://wa.me/?text=Bonjour%20NOBOUCHI%2C%20je%20confirme%20ma%20présence%20à%20ton%20anniversaire%20du%2019%20septembre%202026."
-                    target="_blank">
+                    target="_blank"
+                    rel="noopener noreferrer">
+
                     Confirmer
+
                 </a>
 
             </div>
 
 
+            <!-- REJOUER -->
+
             <button
                 class="replay"
+                type="button"
                 onclick="replayInvitation()">
 
                 ↻ REVENIR À L'ENVELOPPE
@@ -345,7 +873,9 @@
 
 
             <div class="footer">
+
                 Invitation personnelle — NOBOUCHI
+
             </div>
 
         </div>
@@ -357,43 +887,125 @@
 
 <script>
 
+/* =========================
+   OUVRIR
+========================= */
+
 function openInvitation() {
 
     const envelope =
         document.getElementById("envelope");
 
+    const cover =
+        document.getElementById("cover");
+
+    const invitation =
+        document.getElementById("invitation");
+
+
+    /* Lance l'animation */
+
     envelope.classList.add("open");
 
-    setTimeout(function() {
 
-        document.getElementById("cover")
-        .style.display = "none";
+    /* Attend l'ouverture */
 
-        document.getElementById("invitation")
-        .classList.add("active");
+    setTimeout(function () {
 
-        window.scrollTo(0,0);
+        cover.style.opacity = "0";
 
-    }, 1200);
+
+        setTimeout(function () {
+
+            cover.style.display = "none";
+
+            invitation.style.display = "block";
+
+            invitation.classList.add("active");
+
+
+            window.scrollTo({
+
+                top: 0,
+
+                behavior: "smooth"
+
+            });
+
+        }, 350);
+
+    }, 1300);
 }
 
+
+/* =========================
+   REVENIR À L'ENVELOPPE
+========================= */
 
 function replayInvitation() {
 
-    document.getElementById("invitation")
-    .classList.remove("active");
+    const envelope =
+        document.getElementById("envelope");
 
-    document.getElementById("invitation")
-    .style.display = "none";
+    const cover =
+        document.getElementById("cover");
 
-    document.getElementById("cover")
-    .style.display = "flex";
+    const invitation =
+        document.getElementById("invitation");
 
-    document.getElementById("envelope")
-    .classList.remove("open");
 
-    window.scrollTo(0,0);
+    /* Cache l'invitation */
+
+    invitation.classList.remove("active");
+
+    invitation.style.display = "none";
+
+
+    /* Ferme l'enveloppe */
+
+    envelope.classList.remove("open");
+
+
+    /* Réaffiche l'enveloppe */
+
+    cover.style.opacity = "1";
+
+    cover.style.display = "flex";
+
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
 }
+
+
+/* =========================
+   INITIALISATION
+========================= */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const cover =
+            document.getElementById("cover");
+
+        const invitation =
+            document.getElementById("invitation");
+
+
+        cover.style.display = "flex";
+
+        cover.style.opacity = "1";
+
+        invitation.style.display = "none";
+
+    }
+);
 
 </script>
 
